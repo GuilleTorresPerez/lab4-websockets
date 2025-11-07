@@ -37,7 +37,7 @@ class ElizaServerTest {
         assertEquals("The doctor is in.", list[0])
     }
 
-    //@Disabled // Remove this line when you implement onChat
+    // @Disabled // Remove this line when you implement onChat
     @Test
     fun onChat() {
         logger.info { "Test thread" }
@@ -59,7 +59,7 @@ class ElizaServerTest {
         //    según timings. Verificamos un rango estable:
         org.junit.jupiter.api.Assertions.assertTrue(
             size in 4..5,
-            "Expected 4..5 messages due to async timing, but was $size"
+            "Expected 4..5 messages due to async timing, but was $size",
         )
 
         // 3. EXPLAIN WHY assertEquals CANNOT BE USED AND WHY WE SHOULD CHECK THE INTERVAL
@@ -71,9 +71,8 @@ class ElizaServerTest {
         //    Los 3 primeros mensajes son deterministas en orden; validamos uno concreto:
         assertEquals("---", list[2])
 
-        logger.info { "Client size: (${list.size})"}
+        logger.info { "Client size: (${list.size})" }
     }
-
 }
 
 @ClientEndpoint
@@ -111,12 +110,11 @@ class ComplexClient(
                 session.basicRemote.sendText("I feel happy today.") // 1er prompt al server
                 askedOnce = true
             } else {
-                session.basicRemote.sendText("bye")                 // 2º '---' -> cerrar
+                session.basicRemote.sendText("bye") // 2º '---' -> cerrar
             }
         }
     }
 }
-
 
 fun Any.connect(uri: String) {
     ContainerProvider.getWebSocketContainer().connectToServer(this, URI(uri))
